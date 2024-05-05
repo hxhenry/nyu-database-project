@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Account, LoanAccount, CheckingAccount, SavingsAccount
+from .models import Account, LoanAccount, CheckingAccount, SavingsAccount, StudentLoanAccount, HomeLoanAccount
 
 
 def accounts(request):
@@ -10,8 +10,4 @@ def accounts(request):
 
 def account(request, pk):
     projectObj = Account.objects.get(id=pk)
-    loanaccounts = LoanAccount.objects.all()
-    checkingaccounts = CheckingAccount.objects.all()
-    savingsaccounts = SavingsAccount.objects.all()
-    return render(request, 'accounts/single-account.html', {'projectObj': projectObj,
-                  'loanaccounts': loanaccounts, 'checkingaccounts': checkingaccounts, 'savingsaccounts': savingsaccounts})
+    return render(request, 'accounts/single-account.html', {'projectObj': projectObj})

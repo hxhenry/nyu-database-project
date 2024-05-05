@@ -4,11 +4,23 @@
 
     <h1>Accounts Page</h1>
     <hr>
-    <ul>
+    <table>
+        <tr>
+            <th>User</th>
+            <th>Account Number</th>
+            <th>Type</th>
+            <th>Bank Location</th>
+            <th></th>
+        </tr>
         {% for account in accounts %}
-            <li>Account Number: <a href="{% url 'account' account.id %}">{{ account.account_number }}
-            </a>---- Account Open Date: {{ account.account_dateopen }} --- Account Type: {{ account.account_type }}</li>
+            <tr>
+                <td>{{ account.user }}</td>
+                <td>{{ account.account_number }}</td>
+                <td>{{ account.account_type }}</td>
+                <td>{{ account.street_name }}</td>
+                <td> <a href="{% url 'account' account.id %}">View</a></td>
+            </tr>
         {% endfor %}
-    </ul>
+    </table>
 
 {% endblock %}

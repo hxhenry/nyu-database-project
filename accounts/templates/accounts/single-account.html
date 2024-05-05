@@ -3,14 +3,14 @@
 
 {% block content %}
     {% if projectObj.account_type == 'Checking' %}
-        <h1>checking</h1>
-    {% elif projectObj.account_type == 'Savings' %}
-        <h1>savings</h1>
-    {% else %}
-        <h1>Loan</h1>
-    {% endif %}
-    <h1>{{projectObj.account_number}}</h1>
-<br>
-<p>{{ projectObj.account_dateopen }}</p>
+        <h1>This is Checking Account</h1>
 
+        <h1>The checking service charge is: {{checkingaccounts.checking_servicecharge}}</h1>
+    {% elif projectObj.account_type == 'Savings' %}
+        <h1>This is Savings Account</h1>
+        <h1>The savings interest is: {{savingsaccounts.savings_interest}}</h1>
+    {% else %}
+        <h1>This is Loan Account</h1>
+
+    {% endif %}
 {% endblock %}
