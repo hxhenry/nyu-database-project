@@ -1,0 +1,14 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    <h1>Accounts Page</h1>
+    <hr>
+    <ul>
+        {% for account in accounts %}
+            <li>Account Number: <a href="{% url 'account' account.id %}">{{ account.account_number }}
+            </a>---- Account Open Date: {{ account.account_dateopen }} --- Account Type: {{ account.account_type }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

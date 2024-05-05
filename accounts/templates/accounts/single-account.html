@@ -1,0 +1,16 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+    {% if projectObj.account_type == 'Checking' %}
+        <h1>checking</h1>
+    {% elif projectObj.account_type == 'Savings' %}
+        <h1>savings</h1>
+    {% else %}
+        <h1>Loan</h1>
+    {% endif %}
+    <h1>{{projectObj.account_number}}</h1>
+<br>
+<p>{{ projectObj.account_dateopen }}</p>
+
+{% endblock %}
