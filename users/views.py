@@ -34,7 +34,7 @@ def loginUser(request):
 
         if user is not None:
             login(request, user)
-            return redirect('customer_review')
+            return redirect('profiles')
         else:
             messages.error(request, 'Incorrect username or password')
 
@@ -54,7 +54,7 @@ def registerUser(request):
             messages.success(request, f'Account created for {user.username}')
 
             login(request, user)
-            return redirect('customer_review')
+            return redirect('profiles')
         else:
             messages.error(request, 'An error occurred. Please try again.')
 
