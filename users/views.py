@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
 from accounts.models import Account
+from .forms import ProfileForm
 
 
 def logoutUser(request):
@@ -71,3 +72,27 @@ def userProfile(request, pk):
     profile = Profile.objects.get(id=pk)
     context = {'profile': profile}
     return render(request, 'users/profile.html', context)
+
+
+def createProfile(request):
+    form = ProfileForm()
+    if request.method == 'POST':
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('profiles')
+    context = {'form': form}
+    return render(request, 'users/profile_form.html', context)
+
+
+def updateProfile(request, pk):
+    profile = Profile.objects.get(id=pk)
+    form = ProfileForm(instance=profile)
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profiles')
+    context = {'form': form}
+    return render(request, 'users/profile_form.html', context)
