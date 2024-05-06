@@ -1,29 +1,68 @@
 {% extends 'main.html' %}
 
 {% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+    }
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    hr {
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    th, td {
+        padding: 10px;
+        border: 1px solid #ccc;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+    a {
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+    a:hover {
+        background-color: #f2f2f2;
+    }
+</style>
 
-    <h1>Profiles Page</h1>
-    <hr>
-    <table>
+<h1>Profiles Page</h1>
+<hr>
+<table>
+    <tr>
+        <th>User</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Apt</th>
+        <th>Actions</th>
+    </tr>
+    {% for profile in profiles %}
         <tr>
-            <th>User</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Apt</th>
+            <td>{{ profile.user }}</td>
+            <td>{{ profile.Customer_First_Name }}</td>
+            <td>{{ profile.Customer_Last_Name }}</td>
+            <td>{{ profile.Customer_Email }}</td>
+            <td>{{ profile.customer_apartment_number }}</td>
+            <td>
+                <a href="{% url 'delete_profile' profile.id %}">Delete</a>
+                <a href="{% url 'update_profile' profile.id %}" style="margin-left: 5px;">Edit</a>
+                <a href="{% url 'profile' profile.id %}" style="margin-left: 5px;">View</a>
+            </td>
         </tr>
-        {% for profile in profiles %}
-            <tr>
-                <td>{{ profile.user }}</td>
-                <td>{{ profile.Customer_First_Name }}</td>
-                <td>{{ profile.Customer_Last_Name }}</td>
-                <td>{{ profile.Customer_Email }}</td>
-                <td>{{ profile.customer_apartment_number }}</td>
-                <td> <a href="{% url 'delete_profile' profile.id %}">Delete</a></td>
-                <td> <a href="{% url 'update_profile' profile.id %}">Edit</a></td>
-                <td> <a href="{% url 'profile' profile.id %}">View</a></td>
-            </tr>
-        {% endfor %}
-    </table>
+    {% endfor %}
+</table>
 
 {% endblock %}

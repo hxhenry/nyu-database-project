@@ -1,26 +1,53 @@
 {% extends 'main.html' %}
 
 {% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+    }
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    hr {
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    th, td {
+        padding: 10px;
+        border: 1px solid #ccc;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+</style>
 
-    <h1>Profile Page</h1>
-    <hr>
-    <table>
-        <tr>
-            <th>User</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Apt</th>
-        </tr>
+<h1>Profile Page</h1>
+<hr>
+<table>
+    <tr>
+        <th>User</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Apt</th>
+    </tr>
 
-        <tr>
-            <td>{{ profile.user }}</td>
-            <td>{{ profile.Customer_First_Name }}</td>
-            <td>{{ profile.Customer_Last_Name }}</td>
-            <td>{{ profile.Customer_Email }}</td>
-            <td>{{ profile.customer_apartment_number }}</td>
-        </tr>
-
-    </table>
+    <tr>
+        <td>{{ profile.user }}</td>
+        <td>{{ profile.Customer_First_Name }}</td>
+        <td>{{ profile.Customer_Last_Name }}</td>
+        <td>{{ profile.Customer_Email }}</td>
+        <td>{{ profile.customer_apartment_number }}</td>
+    </tr>
+</table>
 
 {% endblock %}
