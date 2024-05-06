@@ -19,6 +19,7 @@
                 <td>{{ profile.Customer_Last_Name }}</td>
                 <td>{{ profile.Customer_Email }}</td>
                 <td>{{ profile.customer_apartment_number }}</td>
+                <td> <a href="{% url 'delete_profile' profile.id %}">Delete</a></td>
                 <td> <a href="{% url 'update_profile' profile.id %}">Edit</a></td>
                 <td> <a href="{% url 'profile' profile.id %}">View</a></td>
             </tr>

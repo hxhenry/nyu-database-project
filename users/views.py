@@ -96,3 +96,12 @@ def updateProfile(request, pk):
             return redirect('profiles')
     context = {'form': form}
     return render(request, 'users/profile_form.html', context)
+
+
+def deleteProfile(request, pk):
+    profile = Profile.objects.get(id=pk)
+    if request.method == 'POST':
+        profile.delete()
+        return redirect('profiles')
+    context = {'profile': profile}
+    return render(request, 'users/delete_template.html', context)
