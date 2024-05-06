@@ -1,11 +1,14 @@
 from django.shortcuts import render
 
 # Create your views here.
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
+from .models import Profile
+from accounts.models import Account
 
 
 def logoutUser(request):
@@ -56,3 +59,15 @@ def registerUser(request):
 
     context = {'page': page, 'form': form}
     return render(request, 'users/login_register.html', context)
+
+
+def profiles(request):
+    profiles = Profile.objects.all()
+    context = {'profiles': profiles}
+    return render(request, 'users/profiles.html', context)
+
+
+def userProfile(request, pk):
+    profile = Profile.objects.get(id=pk)
+    context = {'profile': profile}
+    return render(request, 'users/profile.html', context)

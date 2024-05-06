@@ -5,4 +5,8 @@ urlpatterns = [
     path('', views.loginUser, name='login'),
     path('logout/', views.logoutUser, name='logout'),
     path('register/', views.registerUser, name='register'),
+    path('profiles/', views.profiles, name='profiles'),
+    path('profiles/<str:pk>/', views.userProfile, name='profile'),
+
+
 ]
