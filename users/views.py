@@ -15,11 +15,15 @@ from .forms import *
 
 def logoutUser(request):
     logout(request)
-    messages.error(request, 'User was logged out successfully')
+    # messages.error(request, 'User was logged out successfully')
     return redirect('login')
 
 
 def loginUser(request):
+
+    if request.user.is_authenticated:
+        return redirect('/profile/{}/'.format(request.user.username))
+
     page = 'login'
 
     if request.method == 'POST':
@@ -61,7 +65,7 @@ def registerUser(request):
                 messages.success(request, f'Account created for {user.username}')
 
                 login(request, user)
-                return redirect('profiles')
+                return redirect('/profile/{}/'.format(user.username))
             else:
                 messages.error(request, 'Related email does not exit. Please try again.')
         else:
@@ -79,6 +83,7 @@ def profiles(request):
     return render(request, 'users/profiles.html', context)
 
 
+@login_required(login_url='')
 def userProfile(request, pk):
     profile = HcyCustomer.objects.get(cemail=pk)
     street = profile.stid
@@ -89,6 +94,7 @@ def userProfile(request, pk):
     return render(request, 'users/profile.html', context)
 
 
+@login_required(login_url='')
 def createProfile(request):
     form = CustomerForm()
     if request.method == 'POST':
@@ -100,6 +106,7 @@ def createProfile(request):
     return render(request, 'users/profile_form.html', context)
 
 
+@login_required(login_url='')
 def updateProfile(request, pk):
     profile = HcyCustomer.objects.get(cemail=pk)
     form = CustomerForm(instance=profile)
