@@ -1,16 +1,13 @@
 from django.shortcuts import render
-from .models import Account
+from .models import HcyAccount
 
 
 def accounts(request):
-    accountable = Account.objects.all()
+    accountable = HcyAccount.objects.all()
     context = {'accounts': accountable}
     return render(request, 'accounts/accounts.html', context)
 
 
 def account(request, pk):
-    projectObj = Account.objects.get(id=pk)
+    projectObj = HcyAccount.objects.get(ano=pk)
     return render(request, 'accounts/single-account.html', {'projectObj': projectObj})
-
-
-

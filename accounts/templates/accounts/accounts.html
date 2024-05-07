@@ -53,10 +53,10 @@
     {% for account in accounts %}
         <tr>
             <td>{{ account.user }}</td>
-            <td>{{ account.account_number }}</td>
-            <td>{{ account.account_type }}</td>
-            <td>{{ account.street_name }}</td>
-            <td> <a href="{% url 'account' account.id %}">View</a></td>
+            <td>{{ account.ano }}</td>
+            <td>{{ account.a_type }}</td>
+            <td>{{ account.stid }}</td>
+            <td> <a href="{% url 'account' account.ano %}">View</a></td>
         </tr>
     {% endfor %}
 </table>
