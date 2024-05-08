@@ -4,21 +4,31 @@
 <style>
     /* General styles for content area */
     .content-area {
+        max-width: 600px; /* 设置内容区域的最大宽度 */
+        margin: 0 auto; /* 水平居中 */
         padding: 40px;
         font-family: 'Arial', sans-serif;
-        background-color: #f9f9f9;
+        background-color: #fff;
         border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        margin: 20px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        margin-top: 20px;
         color: #333;
     }
 
-    /* Styling for page titles */
     .page-title {
-        color: #2a2a72;  /* Dark blue for a consistent look */
+        color: #2a2a72;  /* Dark blue for better contrast */
         font-size: 28px;
         border-bottom: 1px solid #ccc;
         padding-bottom: 10px;
+        text-align: center; /* 居中标题 */
+    }
+
+    /* Subheading styles */
+    .sub-title {
+        color: #6B8E23;
+        margin-top: 20px;
+        font-size: 22px;
+        text-align: center; /* 居中副标题 */
     }
 
     /* Styling for the savings interest rate */
@@ -27,7 +37,12 @@
         color: #555;
         margin-top: 20px;
         padding-top: 10px;
-        border-top: 1px dashed #ccc;
+        text-align: center;
+    }
+
+    .interest-rate strong {
+        color: #da291c;  /* A strong red for emphasis */
+        font-weight: bold;
     }
 
     /* Hover effect for content area */
@@ -38,8 +53,7 @@
 
 <div class="content-area">
     <h1 class="page-title">Account Page</h1>
-    <hr>
-    <h1 class="page-title">This is Saving Account!</h1>
+    <h1 class="sub-title">This is a Saving Account!</h1>
     <p class="interest-rate">Interest Rate: <strong>{{ savings.sintrate }}</strong>%</p>
 </div>
 {% endblock %}

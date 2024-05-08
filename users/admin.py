@@ -9,4 +9,3 @@ admin.site.register(HcyState)
 admin.site.register(HcyCity)
 admin.site.register(HcyStreet)
 admin.site.register(HcyZip)
-

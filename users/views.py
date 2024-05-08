@@ -1,3 +1,5 @@
+from django.db import transaction
+from django.http import HttpResponseForbidden
 from django.shortcuts import render
 
 # Create your views here.
@@ -22,6 +24,8 @@ def logoutUser(request):
 def loginUser(request):
 
     if request.user.is_authenticated:
+        if request.user.is_superuser:
+            return redirect('profiles')
         return redirect('/profile/{}/'.format(request.user.username))
 
     page = 'login'
@@ -85,12 +89,20 @@ def profiles(request):
 
 @login_required(login_url='')
 def userProfile(request, pk):
+    if not request.user.is_superuser and request.user.username != pk:
+        return HttpResponseForbidden("You do not have permission to access this page.")
     profile = HcyCustomer.objects.get(cemail=pk)
     street = profile.stid
     city = street.cid
     state = city.sid
     zipcode = street.zipcode
-    context = {'profile': profile, 'street': street, 'city': city, 'state': state, 'zipcode': zipcode}
+    accounts = HcyAccount.objects.all()
+    context = {'profile': profile,
+               'street': street,
+               'city': city,
+               'state': state,
+               'zipcode': zipcode,
+               'accounts': accounts}
     return render(request, 'users/profile.html', context)
 
 
@@ -108,15 +120,24 @@ def createProfile(request):
 
 @login_required(login_url='')
 def updateProfile(request, pk):
+    if not request.user.is_superuser and request.user.username != pk:
+        return HttpResponseForbidden("You do not have permission to access this page.")
     profile = HcyCustomer.objects.get(cemail=pk)
-    form = CustomerForm(instance=profile)
-
+    cuform = CustomerForm(instance=profile)
     if request.method == 'POST':
-        form = CustomerForm(request.POST, instance=profile)
-        if form.is_valid():
-            form.save()
-            return redirect('profiles')
-    context = {'form': form}
+        cuform = CustomerForm(request.POST, instance=profile)
+        if cuform.is_valid():
+            with transaction.atomic():
+                HcyCustomer.objects.select_for_update()
+                updateCustomer = HcyCustomer.objects.get(cemail=pk)
+                updateCustomer.cusfname = cuform.cleaned_data['cusfname']
+                updateCustomer.cuslname = cuform.cleaned_data['cuslname']
+                updateCustomer.captno = cuform.cleaned_data['captno']
+                updateCustomer.save()
+            if request.user.is_superuser:
+                return redirect('profiles')
+            return redirect('/profile/{}/'.format(profile.cemail))
+    context = {'cuform': cuform}
     return render(request, 'users/profile_form.html', context)
 
 

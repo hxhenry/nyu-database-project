@@ -6,11 +6,12 @@
     .content-block {
         padding: 40px;
         font-family: 'Arial', sans-serif;
-        background-color: #f9f9f9;
+        background-color: #fff;
         border-radius: 8px;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        margin: 20px;
+        margin: 20px auto; /* 设置上下外边距为20px，左右外边距自动居中 */
         color: #333;
+        max-width: 600px; /* 可选：设置最大宽度 */
     }
 
     /* Page title styling */
@@ -19,13 +20,15 @@
         font-size: 28px;
         border-bottom: 1px solid #ccc;
         padding-bottom: 10px;
+        text-align: center; /* 居中标题 */
     }
 
     /* Subheading styles */
     .sub-title {
-        color: #555;
+        color: #6B8E23;
         margin-top: 20px;
         font-size: 22px;
+        text-align: center; /* 居中副标题 */
     }
 
     /* Styling for paragraphs */
@@ -33,6 +36,7 @@
         font-size: 16px;
         line-height: 1.8;
         margin-top: 20px;
+        text-align: center; /* 居中文本内容 */
     }
 
     /* Emphasis styling for dynamic content */
@@ -49,7 +53,7 @@
 
 <div class="content-block">
     <h1 class="page-title">Account Page</h1>
-    <h2 class="sub-title">This is Checking Account!</h2>
+    <h2 class="sub-title">This is a Checking Account!</h2>
     <p class="text-content">MONTHLY ACCOUNT MAINTENANCE FEES: <strong>{{ checking.csercharge }}</strong></p>
 </div>
 {% endblock %}

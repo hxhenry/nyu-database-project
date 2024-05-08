@@ -2,49 +2,70 @@
 
 {% block content %}
 <style>
-    /* General styles for content area */
+        /* General styles for content area */
     .content-area {
+        max-width: 800px; /* 设置内容区域的最大宽度 */
+        margin: 0 auto; /* 水平居中 */
         padding: 40px;
         font-family: 'Arial', sans-serif;
-        background-color: #f9f9f9;
+        background-color: #ffffff;
         border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        margin: 20px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        margin-top: 20px;
         color: #333;
     }
 
-    /* Styling for page titles */
+    /* Page title styling */
     .page-title {
-        color: #2a2a72;  /* Dark blue for a consistent look */
+        color: #2a2a72;  /* Dark blue for better contrast */
         font-size: 28px;
         border-bottom: 1px solid #ccc;
         padding-bottom: 10px;
+        text-align: center; /* 居中标题 */
     }
 
-    /* Styling for tables containing loan details */
-    table {
-        width: 100%;
+    /* Subheading styles */
+    .sub-title {
+        color: #6B8E23;
         margin-top: 20px;
-        border-collapse: collapse;
+        font-size: 22px;
+        text-align: center; /* 居中副标题 */
     }
 
+    /* 容器样式 */
+
+    /* 表格样式 */
+    table {
+        width: 50%;
+        border-collapse: collapse;
+        border-radius: 10px; /* 圆润边角 */
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+        margin: 0 auto;
+        background-color: transparent;
+    }
+
+    /* 表格中的单元格样式 */
     td {
-        border: 1px solid #ccc;
-        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
         text-align: center;
         font-size: 16px;
+        border-radius: 10px;
+        background-color: transparent;
+        border: none; /* 去掉单元格边框 */
+        border-top: 1px solid #ccc; /* 设置上边框 */
     }
 
     /* Hover effect for content area */
     .content-area:hover {
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
 </style>
 
 <div class="content-area">
     <h1 class="page-title">Account Page</h1>
-    <hr>
-    <h1 class="page-title">This is Student Loan Account!</h1>
+    <h1 class="sub-title">This is a Student Loan Account!</h1>
     <table>
         <tr>
             <td>Loan Rate: {{ loan.lrate }}%</td>
@@ -52,8 +73,8 @@
             <td>Term: {{ loan.lmonths }} months</td>
             <td>Monthly Payments: {{ loan.lpayments }}</td>
             <td>Student ID: {{ student.stuid }}</td>
-            <td>Graduation: {{ student.sgrad }}</td>
-            <td>Expected Grad Date: {{ student.sexpgraddate }}</td>
+            <td>Graduate: {% if student.sgrad == 1 %}Yes{% else %}No{% endif %}</td>
+            <td>Expected Grad Date: {{ student.sexpgraddate|date:"Y-m-d" }}</td>
             <td>University: {{ student.uniid.uname }}</td>
         </tr>
     </table>

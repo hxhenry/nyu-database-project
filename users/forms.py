@@ -1,17 +1,11 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, ModelChoiceField
 from .models import *
 
 
 class CustomerForm(ModelForm):
     class Meta:
         model = HcyCustomer
-        fields = ['cusfname', 'cuslname', 'cemail', 'captno']
-
-
-class UniversityForm(ModelForm):
-    class Meta:
-        model = HcyUniversity
-        fields = ['uname']
+        fields = ['cusfname', 'cuslname', 'captno']
 
 
 class StateForm(ModelForm):
