@@ -18,15 +18,15 @@ def account(request, pk):
         checking = HcyChecking.objects.get(ano=pk)
         context = {'account': account, 'checking': checking}
         return render(request, 'accounts/checking-account.html', context)
-    if account.a_type == 'H':
-        home = HcyHome.objects.get(ano=pk)
+    if account.a_type == 'L':
         loan = HcyLoan.objects.get(ano=pk)
-        context = {'loan': loan, 'home': home}
-        return render(request, 'accounts/home-account.html', context)
-    if account.a_type == 'T':
-        student = HcyStudent.objects.get(ano=pk)
-        loan = HcyLoan.objects.get(ano=pk)
-        context = {'loan': loan, 'student': student}
-        return render(request, 'accounts/student-account.html', context)
+        if loan.l_type == 'H':
+            home = HcyHome.objects.get(ano=pk)
+            context = {'loan': loan, 'home': home}
+            return render(request, 'accounts/home-account.html', context)
+        if loan.l_type == 'T':
+            student = HcyStudent.objects.get(ano=pk)
+            context = {'loan': loan, 'student': student}
+            return render(request, 'accounts/student-account.html', context)
 
 

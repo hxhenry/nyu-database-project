@@ -1,18 +1,61 @@
 {% extends 'main.html' %}
 
 {% block content %}
+<style>
+    /* General styles for content area */
+    .content-area {
+        padding: 40px;
+        font-family: 'Arial', sans-serif;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        margin: 20px;
+        color: #333;
+    }
 
-<h1>Account Page</h1>
-<hr>
-    <h1>This is Student loan Account!</h1>
-    <tr>
-        <td>{{ loan.lrate }}</td>
-        <td>{{ loan.lamount }}</td>
-        <td>{{ loan.lmonths }}</td>
-        <td>{{ loan.lpayments }}</td>
-        <td>{{ student.stuid }}</td>
-        <td>{{ student.sgrad }}</td>
-        <td>{{ student.sexpgraddate }}</td>
-        <td>{{ student.uniid.uname }}</td>
-    </tr>
+    /* Styling for page titles */
+    .page-title {
+        color: #2a2a72;  /* Dark blue for a consistent look */
+        font-size: 28px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+    }
+
+    /* Styling for tables containing loan details */
+    table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+    }
+
+    td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    /* Hover effect for content area */
+    .content-area:hover {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+</style>
+
+<div class="content-area">
+    <h1 class="page-title">Account Page</h1>
+    <hr>
+    <h1 class="page-title">This is Student Loan Account!</h1>
+    <table>
+        <tr>
+            <td>Loan Rate: {{ loan.lrate }}%</td>
+            <td>Loan Amount: {{ loan.lamount }}</td>
+            <td>Term: {{ loan.lmonths }} months</td>
+            <td>Monthly Payments: {{ loan.lpayments }}</td>
+            <td>Student ID: {{ student.stuid }}</td>
+            <td>Graduation: {{ student.sgrad }}</td>
+            <td>Expected Grad Date: {{ student.sexpgraddate }}</td>
+            <td>University: {{ student.uniid.uname }}</td>
+        </tr>
+    </table>
+</div>
 {% endblock %}
