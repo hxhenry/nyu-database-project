@@ -1,0 +1,62 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<style>
+    /* General styles for content area */
+    .content-area {
+        padding: 40px;
+        font-family: 'Arial', sans-serif;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        margin: 20px;
+        color: #333;
+    }
+
+    /* Styling for page titles */
+    .page-title {
+        color: #2a2a72;  /* Dark blue for a consistent look */
+        font-size: 28px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+    }
+
+    /* Styling for tables containing loan details */
+    table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+    }
+
+    td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    /* Hover effect for content area */
+    .content-area:hover {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+</style>
+
+<div class="content-area">
+    <h1 class="page-title">Account Page</h1>
+    <hr>
+    <h1 class="page-title">This is Home Loan Account!</h1>
+    <table>
+        <tr>
+            <td>Loan Rate: {{ loan.lrate }}%</td>
+            <td>Amount: {{ loan.lamount }}</td>
+            <td>Duration: {{ loan.lmonths }} months</td>
+            <td>Monthly Payments: {{ loan.lpayments }}</td>
+            <td>Year Built: {{ home.hbuily }}</td>
+            <td>Insurance Account: {{ home.hinsacc }}</td>
+            <td>Insurance Yearly: {{ home.hinyearly }}</td>
+            <td>Street Name: {{ home.stid.stname }}</td>
+            <td>Apartment No.: {{ home.haptno }}</td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

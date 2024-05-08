@@ -1,0 +1,18 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h1>Account Page</h1>
+<hr>
+    <h1>This is Student loan Account!</h1>
+    <tr>
+        <td>{{ loan.lrate }}</td>
+        <td>{{ loan.lamount }}</td>
+        <td>{{ loan.lmonths }}</td>
+        <td>{{ loan.lpayments }}</td>
+        <td>{{ student.stuid }}</td>
+        <td>{{ student.sgrad }}</td>
+        <td>{{ student.sexpgraddate }}</td>
+        <td>{{ student.uniid.uname }}</td>
+    </tr>
+{% endblock %}

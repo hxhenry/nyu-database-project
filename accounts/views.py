@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import HcyAccount
+from .models import *
 
 
 def accounts(request):
@@ -9,5 +9,24 @@ def accounts(request):
 
 
 def account(request, pk):
-    projectObj = HcyAccount.objects.get(ano=pk)
-    return render(request, 'accounts/single-account.html', {'projectObj': projectObj})
+    account = HcyAccount.objects.get(ano=pk)
+    if account.a_type == 'S':
+        savings = HcySavings.objects.get(ano=pk)
+        context = {'account': account, 'savings': savings}
+        return render(request, 'accounts/saving-account.html', context)
+    if account.a_type == 'C':
+        checking = HcyChecking.objects.get(ano=pk)
+        context = {'account': account, 'checking': checking}
+        return render(request, 'accounts/checking-account.html', context)
+    if account.a_type == 'H':
+        home = HcyHome.objects.get(ano=pk)
+        loan = HcyLoan.objects.get(ano=pk)
+        context = {'loan': loan, 'home': home}
+        return render(request, 'accounts/home-account.html', context)
+    if account.a_type == 'T':
+        student = HcyStudent.objects.get(ano=pk)
+        loan = HcyLoan.objects.get(ano=pk)
+        context = {'loan': loan, 'student': student}
+        return render(request, 'accounts/student-account.html', context)
+
+

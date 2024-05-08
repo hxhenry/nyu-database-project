@@ -1,0 +1,45 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<style>
+    /* General styles for content area */
+    .content-area {
+        padding: 40px;
+        font-family: 'Arial', sans-serif;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        margin: 20px;
+        color: #333;
+    }
+
+    /* Styling for page titles */
+    .page-title {
+        color: #2a2a72;  /* Dark blue for a consistent look */
+        font-size: 28px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+    }
+
+    /* Styling for the savings interest rate */
+    .interest-rate {
+        font-size: 18px;
+        color: #555;
+        margin-top: 20px;
+        padding-top: 10px;
+        border-top: 1px dashed #ccc;
+    }
+
+    /* Hover effect for content area */
+    .content-area:hover {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+</style>
+
+<div class="content-area">
+    <h1 class="page-title">Account Page</h1>
+    <hr>
+    <h1 class="page-title">This is Saving Account!</h1>
+    <p class="interest-rate">Interest Rate: <strong>{{ savings.sintrate }}</strong>%</p>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<style>
+    /* Overall content block settings */
+    .content-block {
+        padding: 40px;
+        font-family: 'Arial', sans-serif;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        margin: 20px;
+        color: #333;
+    }
+
+    /* Page title styling */
+    .page-title {
+        color: #2a2a72;  /* Dark blue for better contrast */
+        font-size: 28px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+    }
+
+    /* Subheading styles */
+    .sub-title {
+        color: #555;
+        margin-top: 20px;
+        font-size: 22px;
+    }
+
+    /* Styling for paragraphs */
+    .text-content {
+        font-size: 16px;
+        line-height: 1.8;
+        margin-top: 20px;
+    }
+
+    /* Emphasis styling for dynamic content */
+    .text-content strong {
+        color: #da291c;  /* A strong red for emphasis */
+        font-weight: bold;
+    }
+
+    /* Hover effects for interaction */
+    .content-block:hover {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+</style>
+
+<div class="content-block">
+    <h1 class="page-title">Account Page</h1>
+    <h2 class="sub-title">This is Checking Account!</h2>
+    <p class="text-content">MONTHLY ACCOUNT MAINTENANCE FEES: <strong>{{ checking.csercharge }}</strong></p>
+</div>
+{% endblock %}
