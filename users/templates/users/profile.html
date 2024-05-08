@@ -2,52 +2,127 @@
 
 {% block content %}
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
+
+    .profile-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+
     h1 {
         text-align: center;
         margin-bottom: 20px;
     }
+
     hr {
-        border: 1px solid #ccc;
+        border: none;
+        border-top: 1px solid #ccc;
         margin-bottom: 20px;
     }
+
     table {
         width: 100%;
         border-collapse: collapse;
         margin-bottom: 20px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+
     th, td {
-        padding: 10px;
-        border: 1px solid #ccc;
+        padding: 15px;
+        border: none;
+        border-bottom: 1px solid #ccc;
         text-align: left;
     }
-    th {
-        background-color: #f2f2f2;
-        font-weight: bold;
+    a {
+        text-decoration: none;
+        padding: 8px 10px;
+        border-radius: 5px;
+        background-color: #4caf50;
+        color: #fff;
     }
+    a:hover {
+        background-color: #45a049;
+    }
+
+    .edit-profile-button {
+        text-align: center;
+    }
+
 </style>
 
-<h1>Profile Page</h1>
-<hr>
-<table>
-    <tr>
-        <th>User</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Apt</th>
-    </tr>
+<div class="profile-container">
+    <h1>Profile Page</h1>
+    <hr>
+    <table>
+        <tr>
+            <th>User</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+        </tr>
 
-    <tr>
-        <td>{{ profile.user }}</td>
-        <td>{{ profile.Customer_First_Name }}</td>
-        <td>{{ profile.Customer_Last_Name }}</td>
-        <td>{{ profile.Customer_Email }}</td>
-        <td>{{ profile.customer_apartment_number }}</td>
-    </tr>
-</table>
+        <tr>
+            <td>{{ profile.cemail }}</td>
+            <td>{{ profile.cusfname }}</td>
+            <td>{{ profile.cuslname }}</td>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <th>State</th>
+            <th>City</th>
+            <th>Street</th>
+            <th>Apt</th>
+            <th>Zipcode</th>
+        </tr>
+
+        <tr>
+            <td>{{ state.sname }}</td>
+            <td>{{ city.cname }}</td>
+            <td>{{ street.stname }}</td>
+            <td>{{ profile.captno }}</td>
+            <td>{{ zipcode.zipcode }}</td>
+        </tr>
+    </table>
+
+    <div class="edit-profile-button">
+        <a href="{% url 'update_profile' profile.cemail %}">Edit Profile</a>
+    </div>
+
+</div>
+
+<div class="profile-container">
+    <h1>Account</h1>
+    <hr>
+    <table>
+        <tr>
+            <th>Account Number</th>
+            <th>Account Name</th>
+            <th>Account Type</th>
+            <th>Bank Location</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for account in accounts %}
+            {% if account.cemail == profile %}
+                <tr>
+                    <td>{{ account.ano }}</td>
+                    <td>{{ account.aname }}</td>
+                    <td>{{ account.a_type }}</td>
+                    <td>{{ account.stid.stname }}</td>
+                    <td>
+                        <a href="{% url 'account' account.ano %}">Detail</a>
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+
+</div>
 
 {% endblock %}

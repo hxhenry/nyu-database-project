@@ -1,8 +1,33 @@
-from django.forms import ModelForm
-from .models import Profile
+from django.forms import ModelForm, ModelChoiceField
+from .models import *
 
 
-class ProfileForm(ModelForm):
+class CustomerForm(ModelForm):
     class Meta:
-        model = Profile
-        fields = ['Customer_First_Name', 'Customer_Last_Name', 'Customer_Email', 'customer_apartment_number']
+        model = HcyCustomer
+        fields = ['cusfname', 'cuslname', 'captno']
+
+
+class StateForm(ModelForm):
+    class Meta:
+        model = HcyState
+        fields = ['sname']
+
+
+class CityForm(ModelForm):
+    class Meta:
+        model = HcyCity
+        fields = ['cname']
+
+
+class StreetForm(ModelForm):
+    class Meta:
+        model = HcyStreet
+        fields = ['stname']
+
+
+class ZipForm(ModelForm):
+    class Meta:
+        model = HcyZip
+        fields = ['zipcode']
+

@@ -1,66 +1,67 @@
+# Create your models here.
 from django.contrib.auth.models import User
 from django.db import models
-import uuid
 
 
-# Create your models here.
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    Customer_First_Name = models.CharField(max_length=50)
-    Customer_Last_Name = models.CharField(max_length=50)
-    Customer_Email = models.CharField(max_length=50)
-    customer_apartment_number = models.CharField(max_length=50, blank=True, null=True)
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
-                          editable=False, unique=True)
+class HcyCustomer(models.Model):
+    # user = models.OneToOneField(User, on_delete=models.CASCADE)
+    cusfname = models.CharField(max_length=20, db_comment='customer first name')
+    cuslname = models.CharField(max_length=20, db_comment='customer last name')
+    cemail = models.CharField(primary_key=True, max_length=20, db_comment='customer email')
+    stid = models.ForeignKey('HcyStreet', models.DO_NOTHING, db_column='stid', blank=True, null=True)
+    captno = models.CharField(max_length=10, blank=True, null=True, db_comment='customer apartment numbner')
 
-    def __str__(self):
-        return self.Customer_Email
-
-
-class State(models.Model):
-    state = models.CharField(max_length=50)
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
-                          editable=False, unique=True)
+    class Meta:
+        managed = False
+        db_table = 'hcy_customer'
 
     def __str__(self):
-        return self.state
+        return self.cemail
 
 
-class City(models.Model):
-    city = models.CharField(max_length=50)
-    state = models.ForeignKey(State, on_delete=models.CASCADE)
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
-                          editable=False, unique=True)
+class HcyState(models.Model):
+    sid = models.IntegerField(primary_key=True, db_comment='STATE ID')
+    sname = models.CharField(max_length=20, db_comment='STATE NAME')
 
-    def __str__(self):
-        return self.city
-
-
-class ZipCode(models.Model):
-    zip_code = models.CharField(max_length=50)
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
-                          editable=False, unique=True)
-
-    def __str__(self):
-        return self.zip_code
+    class Meta:
+        managed = False
+        db_table = 'hcy_state'
 
 
-class Street(models.Model):
-    street_Name = models.CharField(max_length=50)
-    city = models.ForeignKey(City, on_delete=models.CASCADE)
-    zipCode = models.ForeignKey(ZipCode, on_delete=models.CASCADE)
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
-                          editable=False, unique=True)
+class HcyCity(models.Model):
+    cid = models.IntegerField(primary_key=True, db_comment='CITY ID')
+    cname = models.CharField(max_length=20, db_comment='CITY NAME')
+    sid = models.ForeignKey('HcyState', models.DO_NOTHING, db_column='sid')
 
-    def __str__(self):
-        return self.street_Name
+    class Meta:
+        managed = False
+        db_table = 'hcy_city'
 
 
-class University(models.Model):
-    university = models.CharField(max_length=50)
-    university_ID = models.CharField(max_length=50)
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
-                          editable=False, unique=True)
+class HcyStreet(models.Model):
+    stid = models.IntegerField(primary_key=True, db_comment='STREET ID')
+    stname = models.CharField(max_length=20, db_comment='STREET NAME')
+    cid = models.ForeignKey('HcyCity', models.DO_NOTHING, db_column='cid')
+    zipcode = models.ForeignKey('HcyZip', models.DO_NOTHING, db_column='zipcode')
 
-    def __str__(self):
-        return self.university
+    class Meta:
+        managed = False
+        db_table = 'hcy_street'
+
+
+class HcyZip(models.Model):
+    zipcode = models.DecimalField(primary_key=True, max_digits=20, decimal_places=0, db_comment='Zipcode')
+
+    class Meta:
+        managed = False
+        db_table = 'hcy_zip'
+
+
+class HcyUniversity(models.Model):
+    uniid = models.SmallIntegerField(primary_key=True, db_comment='University ID')
+    uname = models.CharField(max_length=30, blank=True, null=True, db_comment='University Name')
+
+    class Meta:
+        managed = False
+        db_table = 'hcy_university'
+

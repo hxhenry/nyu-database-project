@@ -2,67 +2,76 @@
 
 {% block content %}
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
+    .profile-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+
     h1 {
         text-align: center;
         margin-bottom: 20px;
     }
+
     hr {
-        border: 1px solid #ccc;
+        border: none;
+        border-top: 1px solid #ccc;
         margin-bottom: 20px;
     }
+
     table {
         width: 100%;
         border-collapse: collapse;
         margin-bottom: 20px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+
     th, td {
-        padding: 10px;
-        border: 1px solid #ccc;
+        padding: 15px;
+        border: none;
+        border-bottom: 1px solid #ccc;
         text-align: left;
-    }
-    th {
-        background-color: #f2f2f2;
-        font-weight: bold;
     }
     a {
         text-decoration: none;
         padding: 5px 10px;
         border-radius: 5px;
+        background-color: #4caf50;
+        color: #fff;
     }
     a:hover {
-        background-color: #f2f2f2;
+        background-color: #45a049;
     }
 </style>
 
-<h1>Profiles Page</h1>
-<hr>
-<table>
-    <tr>
-        <th>User</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Apt</th>
-        <th>Actions</th>
-    </tr>
-    {% for profile in profiles %}
+<div class="profile-container">
+    <h1>Profiles Page</h1>
+    <hr>
+    <table>
         <tr>
-            <td>{{ profile.user }}</td>
-            <td>{{ profile.Customer_First_Name }}</td>
-            <td>{{ profile.Customer_Last_Name }}</td>
-            <td>{{ profile.Customer_Email }}</td>
-            <td>{{ profile.customer_apartment_number }}</td>
-            <td>
-                <a href="{% url 'delete_profile' profile.id %}">Delete</a>
-                <a href="{% url 'update_profile' profile.id %}" style="margin-left: 5px;">Edit</a>
-                <a href="{% url 'profile' profile.id %}" style="margin-left: 5px;">View</a>
-            </td>
+            <th>User</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Actions</th>
         </tr>
-    {% endfor %}
-</table>
+        {% for profile in profiles %}
+            <tr>
+                <td>{{ profile.cemail }}</td>
+                <td>{{ profile.cusfname }}</td>
+                <td>{{ profile.cuslname }}</td>
+                <td>
+    {#                <a href="{% url 'delete_profile' profile.cemail %}">Delete</a>#}
+                    <a href="{% url 'update_profile' profile.cemail %}" style="margin-left: 5px;">Edit</a>
+                    <a href="{% url 'profile' profile.cemail %}" style="margin-left: 5px;">View</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
 
 {% endblock %}

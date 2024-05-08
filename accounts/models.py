@@ -1,73 +1,76 @@
-import uuid
-
-from django.contrib.auth.models import User
-from django.db import models
-from users.models import Street, University
-
-
 # Create your models here.
-class Account(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    account_number = models.CharField(max_length=100, unique=True)
-    account_dateopen = models.DateField(auto_now=True)
-    type = (
-        ('Checking', 'Checking'),
-        ('Savings', 'Savings'),
-        ('Loan', 'Loan'),
-    )
-    account_type = models.CharField(max_length=100, choices=type, null=True)
-    street_name = models.ForeignKey(Street, on_delete=models.CASCADE, null=True)
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
-                          editable=False, unique=True)
 
-    def __str__(self):
-        return self.account_number
+from django.db import models
+from users.models import *
 
 
-class LoanAccount(models.Model):
-    account_number = models.OneToOneField(Account, on_delete=models.CASCADE)
-    loan_date = models.DateField(auto_now=True)
-    type = (
-        ('HomeLoan', 'HomeLoan'),
-        ('StudentLoan', 'StudentLoan'),
-    )
-    loan_type = models.CharField(max_length=100, choices=type, null=True)
-    loan_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    loan_months = models.PositiveSmallIntegerField()
-    loan_payment = models.DecimalField(max_digits=10, decimal_places=2)
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
-                          editable=False, unique=True)
+class HcyAccount(models.Model):
+    ano = models.IntegerField(primary_key=True, db_comment='account number')
+    aname = models.CharField(max_length=20, db_comment='account name')
+    adoopen = models.DateTimeField(db_comment='date opened')
+    a_type = models.CharField(max_length=1, db_comment='account type')
+    cemail = models.ForeignKey(HcyCustomer, models.DO_NOTHING, db_column='cemail', db_comment='customer email')
+    stid = models.ForeignKey(HcyStreet, models.DO_NOTHING, db_column='stid', blank=True, null=True)
+    baptno = models.CharField(max_length=10, blank=True, null=True, db_comment='Bank apartment number')
+
+    class Meta:
+        managed = False
+        db_table = 'hcy_account'
 
 
-class CheckingAccount(models.Model):
-    account_number = models.OneToOneField(Account, on_delete=models.CASCADE)
-    checking_servicecharge = models.DecimalField(max_digits=10, decimal_places=2)
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
-                          editable=False, unique=True)
+class HcySavings(models.Model):
+    ano = models.OneToOneField('HcyAccount', models.DO_NOTHING, db_column='ano', primary_key=True, db_comment='account number')
+    sintrate = models.DecimalField(max_digits=10, decimal_places=2, db_comment='SAVINGS INTEREST RATE')
+
+    class Meta:
+        managed = False
+        db_table = 'hcy_savings'
 
 
-class SavingsAccount(models.Model):
-    account_number = models.OneToOneField(Account, on_delete=models.CASCADE)
-    savings_interest = models.DecimalField(max_digits=10, decimal_places=2)
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
-                          editable=False, unique=True)
+class HcyChecking(models.Model):
+    ano = models.OneToOneField('HcyAccount', models.DO_NOTHING, db_column='ano', primary_key=True, db_comment='account number')
+    csercharge = models.DecimalField(max_digits=10, decimal_places=2, db_comment='MONTHLY ACCOUNT MAINTENANCE FEES')
+
+    class Meta:
+        managed = False
+        db_table = 'hcy_checking'
 
 
-class StudentLoanAccount(models.Model):
-    account_number = models.OneToOneField(Account, on_delete=models.CASCADE)
-    student_id = models.CharField(max_length=100, unique=True)
-    student_is_graduate = models.BooleanField(default=False)
-    student_graduate_date = models.DateField(auto_now=True)
-    university_id = models.ForeignKey(University, on_delete=models.CASCADE)
+class HcyLoan(models.Model):
+    ano = models.OneToOneField('HcyAccount', models.DO_NOTHING, db_column='ano', primary_key=True, db_comment='account number')
+    lrate = models.DecimalField(max_digits=10, decimal_places=2, db_comment='loan rate')
+    lamount = models.DecimalField(max_digits=10, decimal_places=2, db_comment='LOAN AMOUNT')
+    lmonths = models.IntegerField(db_comment='LOAN MONTHS')
+    lpayments = models.DecimalField(max_digits=10, decimal_places=2)
+    l_type = models.CharField(max_length=1, db_comment='LOAN TYPE')
+
+    class Meta:
+        managed = False
+        db_table = 'hcy_loan'
 
 
-class HomeLoanAccount(models.Model):
-    account_number = models.OneToOneField(Account, on_delete=models.CASCADE)
-    home_built_date = models.DateField(auto_now=True)
-    home_insurance_account_number = models.CharField(max_length=100, unique=True)
-    home_insurance_name = models.CharField(max_length=100, unique=True)
-    home_insurance_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    home_apartment_number = models.CharField(max_length=10, blank=True, null=True)
-    street_name = models.ForeignKey(Street, on_delete=models.CASCADE, null=True)
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
-                          editable=False, unique=True)
+class HcyHome(models.Model):
+    ano = models.OneToOneField('HcyLoan', models.DO_NOTHING, db_column='ano', primary_key=True, db_comment='account number')
+    hbuily = models.DateTimeField(db_comment='home built year')
+    hinsacc = models.FloatField(unique=True, db_comment='home insurance account number')
+    hinsname = models.CharField(max_length=20, db_comment='home insurance name')
+    hinyearly = models.DecimalField(max_digits=10, decimal_places=2, db_comment='home insurance yearly insurance premium')
+    stid = models.ForeignKey(HcyStreet, models.DO_NOTHING, db_column='stid', blank=True, null=True)
+    haptno = models.CharField(max_length=10, blank=True, null=True, db_comment='House apartment number')
+
+    class Meta:
+        managed = False
+        db_table = 'hcy_home'
+
+
+class HcyStudent(models.Model):
+    ano = models.OneToOneField('HcyLoan', models.DO_NOTHING, db_column='ano', primary_key=True, db_comment='account number')
+    stuid = models.CharField(unique=True, max_length=20, db_comment='student id')
+    sgrad = models.FloatField(db_comment='student is grad or undergrad')
+    sexpgraddate = models.DateTimeField(db_comment='exptected graduation')
+    uniid = models.ForeignKey(HcyUniversity, models.DO_NOTHING, db_column='uniid', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'hcy_student'
+
